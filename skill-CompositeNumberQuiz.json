@@ -1,0 +1,347 @@
+{
+  "intents": [
+    {
+      "intent": "素因数分解",
+      "examples": [
+        {
+          "text": "クイズ出して"
+        },
+        {
+          "text": "問題出して"
+        },
+        {
+          "text": "数学クイズ出して"
+        },
+        {
+          "text": "素因数分解"
+        },
+        {
+          "text": "素因数分解しよう"
+        },
+        {
+          "text": "遊ぼ"
+        },
+        {
+          "text": "遊んで"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "request_DivideCompositeNumber",
+      "output": {},
+      "parent": "node_6_1628754259913",
+      "actions": [
+        {
+          "name": "/namespace/DivideCompositeNumber",
+          "type": "server",
+          "parameters": {
+            "InputNumber": "<? input.text ?>",
+            "CompositeNumber": "$number.CompositeNumber"
+          },
+          "credentials": "$private.my_credentials",
+          "result_variable": "context.number"
+        }
+      ],
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_10_1628755105363"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "合成数は、$number.CompositeNumber です！\nおめでとう！\n素因数分解成功です！"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1628755105363",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "ようこそ"
+      },
+      "conditions": "$number.Error == 1",
+      "dialog_node": "node_10_1628812625592",
+      "previous_sibling": "node_10_1628818515554"
+    },
+    {
+      "type": "standard",
+      "parent": "node_10_1628755105363",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_6_1628754259913"
+      },
+      "conditions": "$number.Error == 0",
+      "dialog_node": "node_10_1628818515554"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "残念！$number.InputNumber は約数じゃないよ！\nまた挑戦してね。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1628755105363",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "ようこそ"
+      },
+      "conditions": "$number.Error == 2",
+      "dialog_node": "node_1_1628818179479",
+      "previous_sibling": "node_10_1628812625592"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "数字で入力してね！"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1628755105363",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_6_1628754259913"
+      },
+      "conditions": "$number.Error == 3",
+      "dialog_node": "node_2_1628818200813",
+      "previous_sibling": "node_1_1628818179479"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "残念！$number.InputNumber は約数じゃないよ！\nまた挑戦してね。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1628755105363",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "ようこそ"
+      },
+      "conditions": "$number.Error == 4",
+      "dialog_node": "node_3_1628818203452",
+      "previous_sibling": "node_2_1628818200813"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "残念！$number.InputNumber は素数じゃないよ！\nまた挑戦してね。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1628755105363",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "ようこそ"
+      },
+      "conditions": "$number.Error == 5",
+      "dialog_node": "node_4_1628818224016",
+      "previous_sibling": "node_3_1628818203452"
+    },
+    {
+      "type": "standard",
+      "title": "display_node",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "合成数は、$number.CompositeNumber です！\n約数を1つ入力してください！"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1628754201273",
+      "conditions": "true",
+      "dialog_node": "node_6_1628754259913"
+    },
+    {
+      "type": "standard",
+      "title": "素因数分解",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "素因数分解ゲーム！\n今から表示する合成数を素因数分解してね！"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "ようこそ",
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "#素因数分解",
+      "dialog_node": "node_7_1628753751094"
+    },
+    {
+      "type": "standard",
+      "title": "request_CompositeNumber",
+      "output": {},
+      "parent": "node_7_1628753751094",
+      "actions": [
+        {
+          "name": "/namespace/InitializeCompositeNumber",
+          "type": "server",
+          "parameters": {},
+          "credentials": "$private.my_credentials",
+          "result_variable": "context.number"
+        }
+      ],
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_8_1628754201273"
+    },
+    {
+      "type": "standard",
+      "title": "その他",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "解釈できませんでした。申し訳ありませんが違う表現を試していただけますか。"
+              },
+              {
+                "text": "恐れ入りますが表現を変えていただけますか。解釈できませんでした。"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "ようこそ"
+      },
+      "conditions": "anything_else",
+      "dialog_node": "その他",
+      "previous_sibling": "ようこそ",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "ようこそ",
+      "output": {
+        "generic": [
+          {
+            "title": "要件をどうぞ",
+            "options": [
+              {
+                "label": "素因数分解",
+                "value": {
+                  "input": {
+                    "text": "素因数分解"
+                  }
+                }
+              }
+            ],
+            "description": "",
+            "response_type": "option"
+          }
+        ]
+      },
+      "context": {
+        "number": {
+          "Error": "",
+          "InputNumber": "",
+          "CompositeNumber": ""
+        },
+        "private": {
+          "my_credentials": {
+            "user": "",
+            "password": ""
+          }
+        }
+      },
+      "conditions": "welcome",
+      "dialog_node": "ようこそ"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "disambiguation": {
+      "prompt": "もしかして",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "上記のいずれにも該当し"
+    },
+    "human_agent_assist": {
+      "prompt": "もしかして"
+    }
+  },
+  "learning_opt_out": false,
+  "name": "CompositeNumberQuiz copy",
+  "language": "ja",
+  "description": " copy"
+}
